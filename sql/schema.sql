@@ -3,9 +3,9 @@ CREATE TABLE applications (
     company_name TEXT NOT NULL,
     job_title TEXT NOT NULL,
     location TEXT,
-    date_applied TEXT NOT NULL,
+    date_applied TEXT,
     status TEXT NOT NULL DEFAULT 'applied' CHECK (status IN
- ('applied', 'interviewing', 'offer', 'rejected', ' withdrawn')),
+ ('applied', 'interviewing', 'offer','researching', 'rejected', 'withdrawn')),
     source TEXT,
     contact TEXT,
     salary_min INTEGER,
