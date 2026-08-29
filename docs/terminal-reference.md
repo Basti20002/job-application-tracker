@@ -80,7 +80,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | 'brew --version' | Confirm Homebrew is installed and check its version |
 | '~/.zprofile' | Shell startup file zsh reads once, everytime a new terminal session begins - the right place for permanent PATH/environment setup |
 
-##Github CLI ('gh')
+## Github CLI ('gh')
 
 | Command | What it does |
 |---|---|
@@ -89,7 +89,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | 'gh auth status' | Check current authentication state |
 | 'gh repo create <name> --public\|--private --source --remote=origin --push' | Create a GitHub repo from an existing local repo, link it as 'origin', and push in one command |
 
-##macOS-specific
+## macOS-specific
 
 | Command | What it does |
 |---|---|
