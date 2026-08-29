@@ -95,3 +95,58 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 |---|---|
 | 'uname -m' | Print CPU architecture ('arm64' = Apple silicon, 'x86_64' = Intel) - determines Homebrew install path in my instance |
 | 'open <url> or <file>' | Open something with its default macOS application (a URL in your browser, a file in whatever normally handles it) |
+
+## SQLite CLI
+
+| Command | What it does |
+|---|---|
+| 'sqlite3 --version' | Confirms SQLite is installed and check its version |
+| 'sqlite3 <file>' | Open (or create, if it doesn't exist) a database file and drop into an interactive 'sqlite' prompt |
+| 'sqlite3 <file> < script.sql' | Run every statement in 'script.sql' against '<file>', noninteractively (input redirection) |
+| 'sqlite3 <file> ".tables"' | List the tables in a database, without opening the interactive shell |
+| '.tables' | (inside the interactive shell) same as above |
+| '.schema <table>' | Print the exact 'CREATE TABLE' statement SQLite has stored for 'table>' - the real source of truth for what a table actually looks like right now |
+| '.quit' | Exit the interactive 'sqlite>' shell, back to zsh |
+| '...>' | The continuation prompt - SQLite is still waiting for a ';' to know your statement is finished; typing ';' by itself abandons/executes whatever's been entered so far |
+
+## SQL: defining tables
+| Concept | Syntax / Notes |
+|---|---|
+| Create a table | 'CREATE TABLE name (col1 TYPE, col 2 TYPE, ...);' |
+| Storage types | 'INTEGER', 'REAL', 'TEXT', 'BLOB', 'NULL' - SQLite uses "type affinity,"meaning declared types are a strong hint, not strictly enforced |
+| Primary key | 'id INTEGER PRIMARY KEY' -auto-generates a unique ID per row |
+| Required field | 'NOT NULL' - rejects inserts that omit this column |
+| Fallback value | 'DEFAULT 'value'' - used automatically when a column is omitted on insert |
+| Restricted allowed values | 'CHECK (col IN('a','b','c,'))' - rejects any value that is not in the list |
+| Modifiy an existing table | 'ALTER TABLE name ADD COLUMN col TYPE DEAFULT 'value';' - adds a column without touching existing rows (SQLite's 'ALTER TABLE' is more limited than some db's and doesn't change the nano, so nano will need to be also changed if the table is to be used more than once: no adding 'PRIMARY KEY'/'UNIQUE' this way, and 'NOT NULL' requires a 'DEFAULT' if the table already has rows) |
+
+## SQL: reading and writing data
+
+| Concept | Syntax / Notes |
+|---|---|
+| Insert a row | 'INSERT INTO table (col1, col2) VALUES (val1,val2);' |
+| Insert multiple rows at once | 'INSERT INTO table (...) VALUES (...),(...),(...);' - comma- separated value groups |
+| Escaping an apostrophe in text | Double it: ''Master''s''-a lone ''' inside a string would end the string early |
+| Select Data | 'SELECT col1, col2 FROM table;'- 'SELECT *' selects all columns |
+| Filter rows | 'SELECT ... FROM table WHERE condition;' |
+| Pattern matching | 'WHERE col LIKE '%text%'' - '%' is a wildcard matching any (or no) characters |
+| Sort results | 'SELECT ... ORDER BY col;' (ascending by default, 'DESC' reverses it) |
+| Case-insensitive sort | 'ORDER BY col COLLATE NOCASE' - otherwise SQLite sorts by raw character code, capitals before lowercase |
+| Aggregate/summarize | 'SELECT col, COUNT(*) FROM table GROUP BY col;' - collapses rows sharing the same 'col' value into one summary row each |
+| Rename a computed column | 'COUNT(*) AS total' - an alias for the output column's label |
+
+## Shell command caching
+
+| Command | What it does |
+|---|---|
+| 'hash -r' | Clear the shell's cached command locations, forcing a fresh '$PATH' search next time each command is used - needed after installing something new earlier in the PATH than an already-cached version (quite useful after installation) |
+
+## Terminal customization
+
+| Tool/command | What it does |
+|---|---|
+| 'brew install nano' | Installs a modern 'nano' with real syntax-highlighting support (macOS's built-in 'nano' at 'usr/bin/nano' is version 2.0.6 and barely supports it) |
+| '~/.nanorc' | 'nano''s own config file, read fresh every time 'nano' starts. 'include "/opt/homebrew/share/nano/.nanorc"' loads Homebrew's bundled syntax-highlighting definitions (SQL, Markdown, etc.) |
+| 'litecli <database-file>' | A modern, syntax-highlighted, autocompleted-enabled replacement for the plain 'sqlite3' CLI - must be pointed at an actual '.db' file, not a text file |
+| 'Ctrl+D' | Universal-ish "end of input" signal - exits most interactive REPLs/shells cleanly, regardless of that program's specific quit command |
+
