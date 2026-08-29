@@ -11,5 +11,7 @@ CREATE TABLE applications (
     salary_min INTEGER,
     salary_max INTEGER,
     prerequisites TEXT,
-    notes TEXT
+    notes TEXT,
+    employment_type TEXT DEFAULT 'unspecified' CHECK (employment_type IN ('werkstudent',
+ 'praktikum','permanent','fixed-term','unspecified'))
 );
