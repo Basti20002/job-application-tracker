@@ -102,7 +102,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 |---|---|
 | 'sqlite3 --version' | Confirms SQLite is installed and check its version |
 | 'sqlite3 <file>' | Open (or create, if it doesn't exist) a database file and drop into an interactive 'sqlite' prompt |
-| 'sqlite3 <file> < script.sql' | Run every statement in 'script.sql' against '<file>', noninteractively (input redirection) |
+| 'sqlite3 database.db <  script.sql' | Run every statement in 'script.sql' against 'database.db', noninteractively (input redirection) |
 | 'sqlite3 <file> ".tables"' | List the tables in a database, without opening the interactive shell |
 | '.tables' | (inside the interactive shell) same as above |
 | '.schema <table>' | Print the exact 'CREATE TABLE' statement SQLite has stored for 'table>' - the real source of truth for what a table actually looks like right now |
