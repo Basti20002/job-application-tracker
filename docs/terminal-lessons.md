@@ -1,4 +1,4 @@
-#Terminal & Git August 28th 2026: Mistakes I Actually Made Building This
+## Terminal & Git August 28th 2026: Mistakes I Actually Made Building This
 
 I'm learning the terminal, git and SQL from scratch by building this project. Rather than write a tutorial pretending I got it on the first try, this is a log of the real mistakes I hit - what I ran, what broke, why it broke, and how I fixed it. If you're new to this too, you might find yourself in the same situation but that is part of the learning process.
 
@@ -48,10 +48,10 @@ My first real confusion: I ran 'mkdir' to make a folder and... nothing printed. 
 
 **What I ran:** append a 'brew' PATH setup line to '~/.zprofile', then ran 'brew --version' in the *same* terminal tab.
 
-**What happened:** 'zsh: command not found:brew' - even though the line was now sitting right in there in the file.
+**What happened:** 'zsh: command not found: brew' - even though the line was now sitting right in there in the file.
 
 **Why:** '.zprofile' (and files like it) are only read once, when a shell starts up. That terminal tab had already started - and already the old empty version of the file - before I appended the new line. Editing the line afterward doesn't reach into an already-running shell and update it. 
 
 **The fix:** either re-run the setup command directly in the current session ('eval "$(/opt/homebrew/bin/brew shellenv)" '), or open a *new* terminal tab, which reads the file fresh and picks up the change immediately.
 
-**The concept:**Shell config files configure *future* shells, not the ones you're sitting in right now, unless you explicitly reload it.
+**The concept:** Shell config files configure *future* shells, not the ones you're sitting in right now, unless you explicitly reload it.
