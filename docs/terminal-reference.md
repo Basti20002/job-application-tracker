@@ -5,7 +5,6 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 ## Navigating the filesystem
 
 | Command | What it does |
-
 |---|---| 
 | 'pwd' | Print Working Directory - prints the full path of where you currently are |
 | 'ls' | List the contents of the current directory |
