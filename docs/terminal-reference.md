@@ -113,7 +113,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | Concept | Syntax / Notes |
 |---|---|
 | Create a table | `CREATE TABLE name (col1 TYPE, col 2 TYPE, ...);` |
-| Storage types | `INTEGER`, `REAL`, `TEXT`, `BLOB`, `NULL` - SQLite uses "type affinity,"meaning declared types are a strong hint, not strictly enforced |
+| Storage types | `INTEGER`, `REAL`, `TEXT`, `BLOB`, `NULL` - SQLite uses "type affinity," meaning declared types are a strong hint, not strictly enforced |
 | Primary key | `id INTEGER PRIMARY KEY` -auto-generates a unique ID per row |
 | Required field | `NOT NULL` - rejects inserts that omit this column |
 | Fallback value | `DEFAULT `value'` - used automatically when a column is omitted on insert |
