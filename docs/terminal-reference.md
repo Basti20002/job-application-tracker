@@ -16,7 +16,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | `mkdir <name>` | Make a new directory |
 | `mkdir -p <path>` | Make a directory, creating any missing parent directories too, no error if already exists |
 | `touch <file>` | create an empty file, or update its modified timestamp if it already exists |
-| `rm <file>` | Remove a file (permanent - no trash/recycle bin |
+| `rm <file>` | Remove a file (permanent - no trash/recycle bin) |
 | `rm -r <dir>` | Remove a directory and everything inside it (`-r` = recursive; required for directories) |
 
 ## Viewing and editing files 
@@ -33,7 +33,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 |---|---|
 | `>` | Redirect output to a file, **overwriting** it entirely |
 | `>>` | Redirect output to a file **appending** to the end (safe - doesn't destroy existing content) |
-| `$(command)` | Command subsitution - run `command`, and drop its output directly into the surrounding command as text |
+| `$(command)` | Command substitution - run `command`, and drop its output directly into the surrounding command as text |
 | `&&` | Run the next command only if the previous one succeeded (exit code 0) |
 
 ## Git basics
@@ -44,11 +44,11 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | `git status` | Show what's staged, unstaged, and untracked right now |
 | `git add <file>` | Stage a file - mark it to be included in the next commit |
 | `git commit -m "message"` | Save a permanent snapshot of everything staged, with a one-line message |
-| `git commit --amend -m "message"` | Replaces the most recent commit`s message/content instead of creating a new one - only safe before pushing/sharing it |
+| `git commit --amend -m "message"` | Replaces the most recent commit's message/content instead of creating a new one - only safe before pushing/sharing it |
 | `git log` | Show commit history: author, date, message, and each commit's unique hash |
 | `git remote -v` | List configured remotes (e.g. `origin`) and their URLs, for fetch and push |
 | `git push` | Upload local commits to the remote |
-| `git clone <url> <dest>` | Copy a remote repository down to `<dest>` locally (two separate arguements - a missing space merges them into a broken URL) |
+| `git clone <url> <dest>` | Copy a remote repository down to `<dest>` locally (two separate arguments - a missing space merges them into a broken URL) |
 
 ## .gitignore syntax notes
 
@@ -78,16 +78,16 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 |---|---|
 | `brew install <package>` | Install `<package>` via Homebrew |
 | `brew --version` | Confirm Homebrew is installed and check its version |
-| `~/.zprofile` | Shell startup file zsh reads once, everytime a new terminal session begins - the right place for permanent PATH/environment setup |
+| `~/.zprofile` | Shell startup file zsh reads once, every time a new terminal session begins - the right place for permanent PATH/environment setup |
 
-## Github CLI (`gh`)
+## GitHub CLI (`gh`)
 
 | Command | What it does |
 |---|---|
 | `gh --version` | Confirms `gh` is installed and check its version |
 | `gh auth login` | Authenticate `gh` with your Github account (interactive prompts) |
 | `gh auth status` | Check current authentication state |
-| `gh repo create <name> --public\|--private --source --remote=origin --push` | Create a GitHub repo from an existing local repo, link it as `origin`, and push in one command |
+| `gh repo create <name> --public\|--private --source=. --remote=origin --push` | Create a GitHub repo from an existing local repo, link it as `origin`, and push in one command |
 
 ## macOS-specific
 
@@ -101,7 +101,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | Command | What it does |
 |---|---|
 | `sqlite3 --version` | Confirms SQLite is installed and check its version |
-| `sqlite3 <file>` | Open (or create, if it doesn't exist) a database file and drop into an interactive `sqlite` prompt |
+| `sqlite3 <file>` | Open (or create, if it doesn't exist) a database file and drop into an interactive `sqlite>` prompt |
 | `sqlite3 database.db <  script.sql` | Run every statement in `script.sql` against `database.db`, noninteractively (input redirection) |
 | `sqlite3 <file> ".tables"` | List the tables in a database, without opening the interactive shell |
 | `.tables` | (inside the interactive shell) same as above |
@@ -112,13 +112,13 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 ## SQL: defining tables
 | Concept | Syntax / Notes |
 |---|---|
-| Create a table | `CREATE TABLE name (col1 TYPE, col 2 TYPE, ...);` |
+| Create a table | `CREATE TABLE name (col1 TYPE, col2 TYPE, ...);` |
 | Storage types | `INTEGER`, `REAL`, `TEXT`, `BLOB`, `NULL` - SQLite uses "type affinity," meaning declared types are a strong hint, not strictly enforced |
 | Primary key | `id INTEGER PRIMARY KEY` -auto-generates a unique ID per row |
 | Required field | `NOT NULL` - rejects inserts that omit this column |
-| Fallback value | `DEFAULT `value'` - used automatically when a column is omitted on insert |
-| Restricted allowed values | `CHECK (col IN('a','b','c,'))` - rejects any value that is not in the list |
-| Modifiy an existing table | `ALTER TABLE name ADD COLUMN col TYPE DEAFULT 'value';` - adds a column without touching existing rows (SQLite's `ALTER TABLE` is more limited than some db's and doesn't change the nano, so nano will need to be also changed if the table is to be used more than once: no adding `PRIMARY KEY`/`UNIQUE` this way, and `NOT NULL` requires a `DEFAULT` if the table already has rows) |
+| Fallback value | `DEFAULT 'value'` - used automatically when a column is omitted on insert |
+| Restricted allowed values | `CHECK (col IN('a','b','c',))` - rejects any value that is not in the list |
+| Modifiy an existing table | `ALTER TABLE name ADD COLUMN col TYPE DEFAULT 'value';` - adds a column without touching existing rows (SQLite's `ALTER TABLE` is more limited than some db's and doesn't change the source file, so nano will need to be used and the source file changed if the table is to be used more than once: no adding `PRIMARY KEY`/`UNIQUE` this way, and `NOT NULL` requires a `DEFAULT` if the table already has rows) |
 
 ## SQL: reading and writing data
 
@@ -146,7 +146,7 @@ Every command I've used so far, what it does, and why. Reference Doc, not a tuto
 | Tool/command | What it does |
 |---|---|
 | `brew install nano` | Installs a modern `nano` with real syntax-highlighting support (macOS's built-in `nano` at `usr/bin/nano` is version 2.0.6 and barely supports it) |
-| `~/.nanorc` | `nano`'s own config file, read fresh every time `nano` starts. `include "/opt/homebrew/share/nano/.nanorc"` loads Homebrew's bundled syntax-highlighting definitions (SQL, Markdown, etc.) |
-| `litecli <database-file>` | A modern, syntax-highlighted, autocompleted-enabled replacement for the plain `sqlite3` CLI - must be pointed at an actual `.db` file, not a text file |
+| `~/.nanorc` | `nano`'s own config file, read fresh every time `nano` starts. `include "/opt/homebrew/share/nano/*.nanorc"` loads Homebrew's bundled syntax-highlighting definitions (SQL, Markdown, etc.) |
+| `litecli <database-file>` | A modern, syntax-highlighted, autocomplete-enabled replacement for the plain `sqlite3` CLI - must be pointed at an actual `.db` file, not a text file |
 | `Ctrl+D` | Universal-ish "end of input" signal - exits most interactive REPLs/shells cleanly, regardless of that program's specific quit command |
 
