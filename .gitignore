@@ -1,0 +1,13 @@
+# macOS clutter
+.DS_Store
+
+# the actual database - generated from your scripts, not source code
+*.db
+*.sqlite
+*.sqlite3
+
+# your real personal data - keep private, only the schema is public 
+data/raw
+
+# editor junk
+*.swp
